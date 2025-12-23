@@ -36,6 +36,5 @@ app.use('/api/assessments', assessmentRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-server.listen(process.env.PORT, () => {
-    console.log(`Admin API running on port ${process.env.PORT}`);
-});
+export default app;
+
