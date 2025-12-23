@@ -44,10 +44,17 @@ export const getAssessmentReport = async (req, res) => {
             score: assessment.responses.olq.get(String(q.qId))
         }))
 
+    const factorScores = olq.reduce((acc, o) => {
+        acc[o.factor] = acc[o.factor] || []
+        acc[o.factor].push(o)
+        return acc
+    }, {})
+
     res.json({
         candidate: assessment.candidate,
         scores: assessment.scores,
         aptitude,
-        olq
+        olq,
+        factorScores
     })
 }
