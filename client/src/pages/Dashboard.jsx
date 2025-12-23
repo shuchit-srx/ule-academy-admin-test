@@ -38,7 +38,6 @@ export default function Dashboard() {
         }
     });
 
-    // ✅ REALTIME (CORRECT WAY)
     useEffect(() => {
         const handler = () => {
             console.log('ADMIN REALTIME EVENT RECEIVED');
@@ -54,7 +53,6 @@ export default function Dashboard() {
         };
     }, [queryClient]);
 
-    // loading state
     if (isLoading) {
         return (
             <div className="text-sm text-gray-500">
@@ -63,7 +61,6 @@ export default function Dashboard() {
         );
     }
 
-    // error state
     if (isError) {
         return (
             <ErrorCard

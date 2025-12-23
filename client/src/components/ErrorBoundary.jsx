@@ -11,7 +11,6 @@ export default class ErrorBoundary extends React.Component {
     }
 
     componentDidCatch(error, info) {
-        // Log to console now, replace with Sentry later if needed
         console.error('UI crash:', error, info);
     }
 

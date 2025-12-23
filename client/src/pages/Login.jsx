@@ -11,7 +11,6 @@ export default function Login() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
-    // If already logged in, never stay on login page
     useEffect(() => {
         if (admin) {
             navigate('/dashboard', { replace: true });
@@ -25,7 +24,6 @@ export default function Login() {
 
         try {
             await login(email, password);
-            // redirect handled by useEffect when admin updates
         } catch (err) {
             setError(
                 err.response?.data?.message ||
