@@ -1,6 +1,6 @@
 :root {
     --primary: #1f4b99;
-    --bg: radial-gradient(circle at top, #e2ecff, #ffffff 55%);
+    --bg: radial-gradient(circle at top, #e2ecff, #ffffff 100%);
     --text: #0f172a;
     --muted: #6b7280;
     --border: #e5e7eb;

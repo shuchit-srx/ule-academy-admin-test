@@ -29,7 +29,7 @@ export default function Layout() {
                 </div>
             </header>
 
-            <main className="max-w-6xl mx-auto px-6 py-6">
+            <main className="max-w-4xl mx-auto px-6 py-6">
                 <Outlet />
             </main>
         </div>

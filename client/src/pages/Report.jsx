@@ -18,6 +18,7 @@ export default function Report() {
   return (
     <div className="space-y-4">
 
+      {/* Candidate Summary */}
       <Card>
         <h2 className="font-bold text-[#1f4b99]">
           {data.candidate.name}
@@ -42,26 +43,69 @@ export default function Report() {
         </div>
       </Card>
 
+      {/* Aptitude Review */}
       <Card>
-        <h3 className="font-semibold mb-2">Aptitude Review</h3>
+        <h3 className="font-semibold mb-3">Aptitude Review</h3>
+
         {data.aptitude.map(q => (
           <div
             key={q.qId}
-            className={`p-3 mb-2 rounded border ${q.isCorrect ? 'bg-green-50' : 'bg-red-50'
-              }`}
+            className="mb-4 p-3 border rounded"
           >
-            <p className="font-medium">{q.text}</p>
-            <p className="text-sm">
-              Your: {q.chosen || '—'} | Correct: {q.correct}
+            <p className="font-medium mb-2">
+              Q{q.qId}. {q.text}
+            </p>
+
+            <ul className="space-y-1 text-sm">
+              {q.options.map(opt => {
+                const isChosen = opt.value === q.chosen
+                const isCorrect = opt.value === q.correct
+
+                let className = 'px-3 py-1 rounded border'
+
+                if (isCorrect) {
+                  className += ' bg-green-50 border-green-300'
+                } else if (isChosen && !q.isCorrect) {
+                  className += ' bg-red-50 border-red-300'
+                }
+
+                return (
+                  <li
+                    key={opt.value}
+                    className={className}
+                  >
+                    <span className="font-medium">
+                      {opt.label}
+                    </span>{' '}
+                  </li>
+                )
+              })}
+            </ul>
+
+            <p className="mt-2 text-sm">
+              Your Answer: {q.chosen || 'NA'} {" | "}
+              Result:{' '}
+              <span
+                className={
+                  q.chosen == null
+                    ? 'text-gray-700 font-semibold'
+                    : q.isCorrect
+                    ? 'text-green-700 font-semibold'
+                    : 'text-red-700 font-semibold'
+                }
+              >
+                {q.chosen == null ? 'NA' : (q.isCorrect ? 'Correct' : 'Incorrect')}
+              </span>
             </p>
           </div>
         ))}
       </Card>
 
+      {/* Coach Panel */}
       <Card className="no-print">
         <strong>Coach Panel (ULe Academy use only)</strong>
         <p className="text-xs text-gray-500 mt-1">
-          Detailed OLQ & Factor breakdown
+          OLQ & Factor-wise breakdown
         </p>
 
         {Object.entries(data.factorScores).map(([factor, items]) => (

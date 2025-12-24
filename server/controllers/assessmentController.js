@@ -22,6 +22,7 @@ export const getAssessmentReport = async (req, res) => {
 
     const questions = await Question.find()
 
+    // Aptitude Questions with options
     const aptitude = questions
         .filter(q => q.section === 'A')
         .map(q => {
@@ -29,12 +30,14 @@ export const getAssessmentReport = async (req, res) => {
             return {
                 qId: q.qId,
                 text: q.text,
+                options: q.options, // ✅ include all options
                 correct: q.correctOption,
                 chosen,
                 isCorrect: chosen === q.correctOption
             }
         })
 
+    // OLQ Questions
     const olq = questions
         .filter(q => q.section === 'B')
         .map(q => ({
@@ -44,6 +47,7 @@ export const getAssessmentReport = async (req, res) => {
             score: assessment.responses.olq.get(String(q.qId))
         }))
 
+    // Factor grouping
     const factorScores = olq.reduce((acc, o) => {
         acc[o.factor] = acc[o.factor] || []
         acc[o.factor].push(o)
